@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "TblUser")
-public class User {
+public class UserTask {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
