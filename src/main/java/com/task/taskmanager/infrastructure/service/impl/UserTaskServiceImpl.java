@@ -1,23 +1,43 @@
 package com.task.taskmanager.infrastructure.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.task.taskmanager.domain.entity.UserTask;
+import com.task.taskmanager.infrastructure.repository.UserTaskRepository;
 import com.task.taskmanager.infrastructure.service.spec.UserTaskService;
 
 @Service
 public class UserTaskServiceImpl implements UserTaskService{
+	
+	@Autowired
+	UserTaskRepository userTaskRepository;
 
 	@Override
 	public List<UserTask> getAllUser() {
-		List<UserTask> list = new ArrayList<>();
-		UserTask item = new UserTask();
-		item.setName("usertest");
-		list.add(item);
-		return list;
+		return userTaskRepository.findAll();
+	}
+
+	@Override
+	public UserTask createUser(UserTask user) {
+		return userTaskRepository.save(user);
+	}
+
+	@Override
+	public UserTask updateUser(UserTask user) {
+		return userTaskRepository.save(user);
+	}
+
+	@Override
+	public boolean deleteUser(Integer idUser) {
+		try {
+			userTaskRepository.deleteById(idUser);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
 	}
 
 }
