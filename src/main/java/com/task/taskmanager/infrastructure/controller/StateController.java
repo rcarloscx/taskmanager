@@ -30,22 +30,22 @@ public class StateController {
 	@GetMapping("/state")
 	public ResponseEntity<?> getState() {
 		try {
-			List<State> States = stateService.getAllState();
-			if (States.isEmpty()) {
+			List<State> states = stateService.getAllState();
+			if (states.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(States, HttpStatus.OK);
+			return new ResponseEntity<>(states, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@PostMapping("/state")
-	public ResponseEntity<?> createState(@Valid @RequestBody State State, BindingResult bindingResult) {
+	public ResponseEntity<?> createState(@Valid @RequestBody State state, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		State newState = stateService.createState(State);
+		State newState = stateService.createState(state);
 		if(newState != null) {
 			return new ResponseEntity<>(newState, HttpStatus.CREATED);
 		}else {
@@ -54,11 +54,11 @@ public class StateController {
 	}
 	
 	@PutMapping("/state/{id}")
-	public ResponseEntity<?> updateState(@Valid @RequestBody State State, BindingResult bindingResult) {
+	public ResponseEntity<?> updateState(@Valid @RequestBody State state, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		State updatedState = stateService.updateState(State);
+		State updatedState = stateService.updateState(state);
 		if (updatedState != null) {
 			return new ResponseEntity<>(updatedState, HttpStatus.OK);
 		} else {
