@@ -14,63 +14,63 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.task.taskmanager.domain.entity.UserTask;
-import com.task.taskmanager.infrastructure.service.spec.UserTaskService;
+import com.task.taskmanager.domain.entity.Task;
+import com.task.taskmanager.infrastructure.service.spec.TaskService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
-public class UserTaskController {
+@RequestMapping("/task")
+public class TaskController {
 	
 	@Autowired
-	UserTaskService userTaskService;
+	TaskService taskService;
 	
-	@GetMapping("/user")
-	public ResponseEntity<?> getUser() {
+	@GetMapping("/Task")
+	public ResponseEntity<?> getTask() {
 		try {
-			List<UserTask> usuarios = userTaskService.getAllUser();
-			if (usuarios.isEmpty()) {
+			List<Task> Tasks = taskService.getAllTask();
+			if (Tasks.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(usuarios, HttpStatus.OK);
+			return new ResponseEntity<>(Tasks, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@PostMapping("/user")
-	public ResponseEntity<?> createUser(@Valid @RequestBody UserTask user, BindingResult bindingResult) {
+	@PostMapping("/Task")
+	public ResponseEntity<?> createTask(@Valid @RequestBody Task Task, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		UserTask newUser = userTaskService.createUser(user);
-		if(newUser != null) {
-			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+		Task newTask = taskService.createTask(Task);
+		if(newTask != null) {
+			return new ResponseEntity<>(newTask, HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
-	@PutMapping("/user/{id}")
-	public ResponseEntity<?> updateUser(@Valid @RequestBody UserTask user, BindingResult bindingResult) {
+	@PutMapping("/Task/{id}")
+	public ResponseEntity<?> updateTask(@Valid @RequestBody Task Task, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		UserTask updatedUser = userTaskService.updateUser(user);
-		if (updatedUser != null) {
-			return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+		Task updatedTask = taskService.updateTask(Task);
+		if (updatedTask != null) {
+			return new ResponseEntity<>(updatedTask, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@DeleteMapping("/user/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id) {
-		UserTask user = userTaskService.getUserById(id);
-		if(user != null) {
-			userTaskService.deleteUser(id);
+	@DeleteMapping("/Task/{id}")
+	public ResponseEntity<?> deleteTask(@PathVariable("id") Integer id) {
+		Task task = taskService.getTaskById(id);
+		if(task != null) {
+			taskService.deleteTask(id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
