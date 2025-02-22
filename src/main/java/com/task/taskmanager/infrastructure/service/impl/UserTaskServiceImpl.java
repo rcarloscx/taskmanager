@@ -24,6 +24,12 @@ public class UserTaskServiceImpl implements UserTaskService{
 	public UserTask createUser(UserTask user) {
 		return userTaskRepository.save(user);
 	}
+	
+	@Override
+	public UserTask getUserById(Integer idUser) {
+		UserTask usuario = userTaskRepository.findById(idUser).orElse(null);
+        return usuario;
+	}
 
 	@Override
 	public UserTask updateUser(UserTask user) {

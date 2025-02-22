@@ -8,6 +8,7 @@ public interface TaskService {
 	
 	public List<Task> getAllTask();
 	public Task createTask(Task task);
+	public Task getTaskById(Integer idTask);
 	public Task updateTask(Task task);
 	public boolean deleteTask(Integer idtasj);
 

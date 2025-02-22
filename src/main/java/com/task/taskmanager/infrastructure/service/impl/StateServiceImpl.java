@@ -24,6 +24,12 @@ public class StateServiceImpl implements StateService{
 	public State createState(State state) {
 		return stateRepository.save(state);
 	}
+	
+	@Override
+	public State getStateById(Integer idState) {
+		State state = stateRepository.findById(idState).orElse(null);
+        return state;
+	}
 
 	@Override
 	public State updateState(State state) {
@@ -39,7 +45,5 @@ public class StateServiceImpl implements StateService{
             return false;
         }
 	}
-
-
 
 }

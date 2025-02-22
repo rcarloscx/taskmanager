@@ -8,6 +8,7 @@ public interface StateService {
 
 	public List<State> getAllState();
 	public State createState(State state);
+	public State getStateById(Integer idState);
 	public State updateState(State state);
 	public boolean deleteState(Integer idState);
 	
