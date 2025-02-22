@@ -14,67 +14,66 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.task.taskmanager.domain.entity.Task;
-import com.task.taskmanager.infrastructure.service.spec.TaskService;
+import com.task.taskmanager.domain.entity.State;
+import com.task.taskmanager.infrastructure.service.spec.StateService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
-public class TaskController {
-	
+public class StateController {
+
 	@Autowired
-	TaskService taskService;
+	StateService stateService;
 	
-	@GetMapping("/task")
-	public ResponseEntity<?> getTask() {
+	@GetMapping("/state")
+	public ResponseEntity<?> getState() {
 		try {
-			List<Task> Tasks = taskService.getAllTask();
-			if (Tasks.isEmpty()) {
+			List<State> States = stateService.getAllState();
+			if (States.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(Tasks, HttpStatus.OK);
+			return new ResponseEntity<>(States, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@PostMapping("/task")
-	public ResponseEntity<?> createTask(@Valid @RequestBody Task Task, BindingResult bindingResult) {
+	@PostMapping("/state")
+	public ResponseEntity<?> createState(@Valid @RequestBody State State, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		Task newTask = taskService.createTask(Task);
-		if(newTask != null) {
-			return new ResponseEntity<>(newTask, HttpStatus.CREATED);
+		State newState = stateService.createState(State);
+		if(newState != null) {
+			return new ResponseEntity<>(newState, HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
-	@PutMapping("/task/{id}")
-	public ResponseEntity<?> updateTask(@Valid @RequestBody Task Task, BindingResult bindingResult) {
+	@PutMapping("/state/{id}")
+	public ResponseEntity<?> updateState(@Valid @RequestBody State State, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		Task updatedTask = taskService.updateTask(Task);
-		if (updatedTask != null) {
-			return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+		State updatedState = stateService.updateState(State);
+		if (updatedState != null) {
+			return new ResponseEntity<>(updatedState, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@DeleteMapping("/task/{id}")
-	public ResponseEntity<?> deleteTask(@PathVariable("id") Integer id) {
-		Task task = taskService.getTaskById(id);
-		if(task != null) {
-			taskService.deleteTask(id);
+	@DeleteMapping("/state/{id}")
+	public ResponseEntity<?> deleteState(@PathVariable("id") Integer id) {
+		State state = stateService.getStateById(id);
+		if(state != null) {
+			stateService.deleteState(id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 }
