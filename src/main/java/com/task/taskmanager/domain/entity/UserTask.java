@@ -1,12 +1,16 @@
 package com.task.taskmanager.domain.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +22,7 @@ public class UserTask {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idUser;
+	private Long idUserTask;
 
 	@Column(name = "name", nullable = false)
 	@NotNull(message = "El campo name es requerido")
@@ -48,12 +52,15 @@ public class UserTask {
 	@JsonProperty("password")
 	private String password;
 	
-	public Long getIdUser() {
-		return idUser;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usertask")
+    private List<Task> task;
+	
+	public Long getIdUserTask() {
+		return idUserTask;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public void setIdUserTask(Long idUserTask) {
+		this.idUserTask = idUserTask;
 	}
 
 	public String getName() {

@@ -1,19 +1,23 @@
 package com.task.taskmanager.domain.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "TblTask")
+@Table(name = "TblState")
 public class State {
 	
 	@Id
@@ -33,6 +37,9 @@ public class State {
 	@Size(min = 10, max = 20, message="El campo description debe tener mínimo {min} y máximo {max} caracteres")
 	@JsonProperty("description")
 	private String description;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
+    private List<Task> task;
 
 	public Long getIdState() {
 		return idState;
@@ -56,6 +63,14 @@ public class State {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Task> getTask() {
+		return task;
+	}
+
+	public void setTask(List<Task> task) {
+		this.task = task;
 	}
 	
 }

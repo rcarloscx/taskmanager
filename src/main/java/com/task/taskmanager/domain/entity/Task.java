@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,11 +38,13 @@ public class Task {
 	@JsonProperty("description")
 	private String description;
 	
-	@Column(name = "id_user")
-	private int idUser;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user_task")
+    private UserTask usertask;
 	
-	@Column(name = "id_state")
-	private int idState;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_state")
+    private State state;
 
 	public Long getIdTask() {
 		return idTask;
@@ -65,20 +70,20 @@ public class Task {
 		this.description = description;
 	}
 
-	public int getIdUser() {
-		return idUser;
+	public UserTask getUsertask() {
+		return usertask;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setUsertask(UserTask usertask) {
+		this.usertask = usertask;
 	}
 
-	public int getIdState() {
-		return idState;
+	public State getState() {
+		return state;
 	}
 
-	public void setIdState(int idState) {
-		this.idState = idState;
+	public void setState(State state) {
+		this.state = state;
 	}
 	
 }
