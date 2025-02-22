@@ -30,11 +30,11 @@ public class UserTaskController {
 	@GetMapping("/user")
 	public ResponseEntity<?> getUser() {
 		try {
-			List<UserTask> usuarios = userTaskService.getAllUser();
-			if (usuarios.isEmpty()) {
+			List<UserTask> users = userTaskService.getAllUser();
+			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(usuarios, HttpStatus.OK);
+			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

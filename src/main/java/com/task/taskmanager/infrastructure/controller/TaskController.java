@@ -30,22 +30,22 @@ public class TaskController {
 	@GetMapping("/task")
 	public ResponseEntity<?> getTask() {
 		try {
-			List<Task> Tasks = taskService.getAllTask();
-			if (Tasks.isEmpty()) {
+			List<Task> tasks = taskService.getAllTask();
+			if (tasks.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(Tasks, HttpStatus.OK);
+			return new ResponseEntity<>(tasks, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@PostMapping("/task")
-	public ResponseEntity<?> createTask(@Valid @RequestBody Task Task, BindingResult bindingResult) {
+	public ResponseEntity<?> createTask(@Valid @RequestBody Task task, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		Task newTask = taskService.createTask(Task);
+		Task newTask = taskService.createTask(task);
 		if(newTask != null) {
 			return new ResponseEntity<>(newTask, HttpStatus.CREATED);
 		}else {
@@ -54,11 +54,11 @@ public class TaskController {
 	}
 	
 	@PutMapping("/task/{id}")
-	public ResponseEntity<?> updateTask(@Valid @RequestBody Task Task, BindingResult bindingResult) {
+	public ResponseEntity<?> updateTask(@Valid @RequestBody Task task, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		Task updatedTask = taskService.updateTask(Task);
+		Task updatedTask = taskService.updateTask(task);
 		if (updatedTask != null) {
 			return new ResponseEntity<>(updatedTask, HttpStatus.OK);
 		} else {
