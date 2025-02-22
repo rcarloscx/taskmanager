@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.taskmanager.domain.entity.UserTask;
 import com.task.taskmanager.infrastructure.service.spec.UserTaskService;
+import com.task.taskmanager.testcase.utils.ValidateModels;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
@@ -42,8 +43,9 @@ public class UserTaskController {
 	
 	@PostMapping("/user")
 	public ResponseEntity<?> createUser(@Valid @RequestBody UserTask user, BindingResult bindingResult) {
+		System.out.println(user.getName());
 		if(bindingResult.hasErrors()) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return ValidateModels.startValidation(user);
 		}
 		UserTask newUser = userTaskService.createUser(user);
 		if(newUser != null) {
@@ -56,7 +58,7 @@ public class UserTaskController {
 	@PutMapping("/user/{id}")
 	public ResponseEntity<?> updateUser(@Valid @RequestBody UserTask user, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return ValidateModels.startValidation(user);
 		}
 		UserTask updatedUser = userTaskService.updateUser(user);
 		if (updatedUser != null) {

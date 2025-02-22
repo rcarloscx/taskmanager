@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.taskmanager.domain.entity.State;
 import com.task.taskmanager.infrastructure.service.spec.StateService;
+import com.task.taskmanager.testcase.utils.ValidateModels;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
@@ -43,7 +44,7 @@ public class StateController {
 	@PostMapping("/state")
 	public ResponseEntity<?> createState(@Valid @RequestBody State state, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return ValidateModels.startValidation(state);
 		}
 		State newState = stateService.createState(state);
 		if(newState != null) {
@@ -56,7 +57,7 @@ public class StateController {
 	@PutMapping("/state/{id}")
 	public ResponseEntity<?> updateState(@Valid @RequestBody State state, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return ValidateModels.startValidation(state);
 		}
 		State updatedState = stateService.updateState(state);
 		if (updatedState != null) {
