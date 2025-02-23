@@ -1,8 +1,10 @@
 package com.task.taskmanager.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -38,13 +41,15 @@ public class Task {
 	@JsonProperty("description")
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user_task")
-    private UserTask usertask;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_state")
+	@JsonIgnore
     private State state;
+	
+	@JsonProperty("status")
+	@Transient
+	private Long status;
+	
 
 	public Long getIdTask() {
 		return idTask;
@@ -70,14 +75,6 @@ public class Task {
 		this.description = description;
 	}
 
-	public UserTask getUsertask() {
-		return usertask;
-	}
-
-	public void setUsertask(UserTask usertask) {
-		this.usertask = usertask;
-	}
-
 	public State getState() {
 		return state;
 	}
@@ -85,5 +82,18 @@ public class Task {
 	public void setState(State state) {
 		this.state = state;
 	}
+
+	public Long getStatus() {
+		if (this.getState()!=null) {
+			return this.getState().getIdState();
+		}
+		return status;
+	}
+
+	public void setStatus(Long status) {
+		this.status = status;
+	}
 	
+	
+
 }

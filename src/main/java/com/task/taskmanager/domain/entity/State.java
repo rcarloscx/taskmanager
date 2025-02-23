@@ -2,6 +2,7 @@ package com.task.taskmanager.domain.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -27,7 +28,7 @@ public class State {
 	@Column(name = "state")
 	@NotNull(message = "El campo state es requerido")
 	@NotBlank(message = "El campo state no debe ir en blanco")
-	@Size(min = 10, max = 20, message="El campo state debe tener mínimo {min} y máximo {max} caracteres")
+	@Size(min = 4, max = 20, message="El campo state debe tener mínimo {min} y máximo {max} caracteres")
 	@JsonProperty("state")
 	private String state;
 	
@@ -39,6 +40,7 @@ public class State {
 	private String description;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
+	@JsonIgnore
     private List<Task> task;
 
 	public Long getIdState() {

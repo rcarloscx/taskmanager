@@ -69,7 +69,7 @@ public class UserTaskController {
 	}
 
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
 		UserTask user = userTaskService.getUserById(id);
 		if(user != null) {
 			userTaskService.deleteUser(id);

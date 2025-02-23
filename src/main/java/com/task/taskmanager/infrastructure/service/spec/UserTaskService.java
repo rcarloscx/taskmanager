@@ -8,8 +8,8 @@ public interface UserTaskService {
 	
 	public List<UserTask> getAllUser();
 	public UserTask createUser(UserTask user);
-	public UserTask getUserById(Integer idUser);
+	public UserTask getUserById(Long idUser);
 	public UserTask updateUser(UserTask user);
-	public boolean deleteUser(Integer idUser);
+	public boolean deleteUser(Long idUser);
 
 }

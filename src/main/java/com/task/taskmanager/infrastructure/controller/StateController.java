@@ -68,7 +68,7 @@ public class StateController {
 	}
 
 	@DeleteMapping("/state/{id}")
-	public ResponseEntity<?> deleteState(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> deleteState(@PathVariable("id") Long id) {
 		State state = stateService.getStateById(id);
 		if(state != null) {
 			stateService.deleteState(id);

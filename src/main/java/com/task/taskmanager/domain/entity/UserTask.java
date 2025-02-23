@@ -2,6 +2,7 @@ package com.task.taskmanager.domain.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -51,9 +52,6 @@ public class UserTask {
 	@Size(min = 8, max = 12, message = "El campo password debe tener un minimo de {min} o un maximo {max} caracteres")
 	@JsonProperty("password")
 	private String password;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usertask")
-    private List<Task> task;
 	
 	public Long getIdUserTask() {
 		return idUserTask;

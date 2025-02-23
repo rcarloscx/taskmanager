@@ -26,8 +26,8 @@ public class UserTaskServiceImpl implements UserTaskService{
 	}
 	
 	@Override
-	public UserTask getUserById(Integer idUser) {
-		UserTask usuario = userTaskRepository.findById(idUser).orElse(null);
+	public UserTask getUserById(Long idUser) {
+		UserTask usuario = userTaskRepository.findById(idUser.intValue()).orElse(null);
         return usuario;
 	}
 
@@ -37,9 +37,9 @@ public class UserTaskServiceImpl implements UserTaskService{
 	}
 
 	@Override
-	public boolean deleteUser(Integer idUser) {
+	public boolean deleteUser(Long idUser) {
 		try {
-			userTaskRepository.deleteById(idUser);
+			userTaskRepository.deleteById(idUser.intValue());
             return true;
         } catch (Exception e) {
             return false;
