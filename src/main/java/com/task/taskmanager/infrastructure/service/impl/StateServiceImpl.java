@@ -27,7 +27,7 @@ public class StateServiceImpl implements StateService{
 	
 	@Override
 	public State getStateById(Long idState) {
-		State state = stateRepository.findById(idState.intValue()).orElse(null);
+		State state = stateRepository.findById(idState).orElse(null);
         return state;
 	}
 
@@ -39,7 +39,7 @@ public class StateServiceImpl implements StateService{
 	@Override
 	public boolean deleteState(Long idState) {
 		try {
-			stateRepository.deleteById(idState.intValue());
+			stateRepository.deleteById(idState);
             return true;
         } catch (Exception e) {
             return false;

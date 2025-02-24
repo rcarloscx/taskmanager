@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.task.taskmanager.domain.entity.State;
 import com.task.taskmanager.domain.entity.Task;
-import com.task.taskmanager.domain.entity.UserTask;
 import com.task.taskmanager.infrastructure.service.spec.StateService;
 import com.task.taskmanager.infrastructure.service.spec.TaskService;
 import com.task.taskmanager.infrastructure.service.spec.UserTaskService;
@@ -26,7 +25,8 @@ import com.task.taskmanager.testcase.utils.ValidateModels;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://34.45.249.205:8081", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/api")
 public class TaskController {
@@ -59,6 +59,9 @@ public class TaskController {
 		if(bindingResult.hasErrors()) {
 			return ValidateModels.startValidation(task);
 		}
+		if (task.getIdTask()==0) {
+			task.setIdTask(null);
+		}
 		Task newTask = new Task();
 		State itemState = stateService.getStateById(task.getStatus());
 		task.setState(itemState);
@@ -77,6 +80,12 @@ public class TaskController {
 	public ResponseEntity<?> updateTask(@Valid @RequestBody Task task, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ValidateModels.startValidation(task);
+		}
+		System.out.println("estado: "+task.getStatus());
+		State itemState = stateService.getStateById(task.getStatus());
+		task.setState(itemState);
+		if (itemState==null) {
+			return new ResponseEntity<>("Estado no encontrado", HttpStatus.NOT_FOUND);
 		}
 		Task updatedTask = taskService.updateTask(task);
 		if (updatedTask != null) {
