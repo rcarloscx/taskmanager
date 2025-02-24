@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService{
 	
 	@Override
 	public Task getTaskById(Long idTask) {
-		Task task = taskRepository.findById(idTask.intValue()).orElse(null);
+		Task task = taskRepository.findById(idTask).orElse(null);
         return task;
 	}
 
@@ -39,7 +39,7 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public boolean deleteTask(Long idTask) {
 		try {
-			taskRepository.deleteById(idTask.intValue());
+			taskRepository.deleteById(idTask);
             return true;
         } catch (Exception e) {
             return false;

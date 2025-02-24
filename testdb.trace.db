@@ -1,0 +1,40 @@
+2025-02-23 00:25:38.228337-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ROLES" no encontrada
+Table "ROLES" not found; SQL statement:
+INSERT INTO roles(name) VALUES('ROLE_USER') [42102-224]
+2025-02-23 00:25:38.230373-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ROLES" no encontrada
+Table "ROLES" not found; SQL statement:
+INSERT INTO roles(name) VALUES('ROLE_MODERATOR') [42102-224]
+2025-02-23 00:25:38.230373-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ROLES" no encontrada
+Table "ROLES" not found; SQL statement:
+INSERT INTO roles(name) VALUES('ROLE_ADMIN') [42102-224]
+2025-02-23 00:26:16.832521-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TBL_ROLE" no encontrada
+Table "TBL_ROLE" not found; SQL statement:
+INSERT INTO TBL_ROLE(name) VALUES('ROLE_USER') [42102-224]
+2025-02-23 00:26:16.838802-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TBL_ROLE" no encontrada
+Table "TBL_ROLE" not found; SQL statement:
+INSERT INTO TBL_ROLE(name) VALUES('ROLE_MODERATOR') [42102-224]
+2025-02-23 00:26:16.838802-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TBL_ROLE" no encontrada
+Table "TBL_ROLE" not found; SQL statement:
+INSERT INTO TBL_ROLE(name) VALUES('ROLE_ADMIN') [42102-224]
+2025-02-23 00:26:52.586499-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TLBROLE" no encontrada
+Table "TLBROLE" not found; SQL statement:
+INSERT INTO TlbRole(name) VALUES('ROLE_USER') [42102-224]
+2025-02-23 00:26:52.588245-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TLBROLE" no encontrada
+Table "TLBROLE" not found; SQL statement:
+INSERT INTO TlbRole(name) VALUES('ROLE_MODERATOR') [42102-224]
+2025-02-23 00:26:52.588245-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TLBROLE" no encontrada
+Table "TLBROLE" not found; SQL statement:
+INSERT INTO TlbRole(name) VALUES('ROLE_ADMIN') [42102-224]
+2025-02-23 00:28:14.914160-06:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TLBROLE" no encontrada
+Table "TLBROLE" not found; SQL statement:
+INSERT INTO TlbRole(name) VALUES('ROLE_USER') [42102-224]
